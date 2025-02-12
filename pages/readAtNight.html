@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支持分页的文章卡片</title>
+
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', '微软雅黑', sans-serif;
+        }
+
+        /* 隐藏所有滚动条但保留滚动功能 */
+        html {
+            overflow: auto;
+            /* 必须保留滚动功能 */
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE/Edge */
+        }
+
+        /* Webkit浏览器隐藏滚动条 */
+        ::-webkit-scrollbar {
+            display: none;
+            /* Chrome/Safari/Opera */
+        }
+
+        body {
+            background-color: #f8f9fa;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            background-color: #00000000 !important;
+
+        }
+
+        /* 容器布局 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 卡片网格布局 */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        /* 卡片样式设计 */
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 卡片内容排版 */
+        .card-title {
+            color: #2d3436;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .card-date {
+            color: #636e72;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+
+            .article-card {
+                padding: 1.25rem;
+            }
+        }
+
+        /* 加载动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .article-card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* 保留原有样式基础上新增分页相关样式 */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            gap: 0.5rem;
+        }
+
+        .pagination-btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            background: #f1f3f5;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: #6c5ce7;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .pagination-btn.active {
+            background: #6c5ce7;
+            color: white;
+            box-shadow: 0 2px 4px rgba(108, 92, 231, 0.3);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* 保留原有卡片样式... */
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="articles-grid" id="articlesContainer"></div>
+        <div class="pagination-container" id="paginationContainer"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./js/read.js"></script>
+    <script>
+        var currentWidth = $("#nav li:nth-of-type(3) a").parent("li").width();
+        var current = $("li:nth-of-type(3) a").position();
+        $("#nav .slide1").css({ left: +current.left, width: currentWidth });
+    </script>
+    <script>
+        const listData = [
+            {
+                title: "珍惜那个和你聊得来的人",
+                date: "2025-02-07",
+                url: "../peoples_daily/2025-02/2025-02-07.html"
+            }, {
+                title: "为人父母，一定要跟孩子说的7句话",
+                date: "2025-02-06",
+                url: "../peoples_daily/2025-02/2025-02-06.html"
+            }, {
+                title: "新年开工第一天，布局你的2025",
+                date: "2025-02-05",
+                url: "../peoples_daily/2025-02/2025-02-05.html"
+            }, {
+                title: "明天开工！是时候刷新自己了",
+                date: "2025-02-04",
+                url: "../peoples_daily/2025-02/2025-02-04.html"
+            }, {
+                title: "今日立春，立下一年好光景！",
+                date: "2025-02-03",
+                url: "../peoples_daily/2025-02/2025-02-03.html"
+            }, {
+                title: "新年自律的四个方法，做到一个就很棒",
+                date: "2025-02-02",
+                url: "../peoples_daily/2025-02/2025-02-02.html"
+            }, {
+                title: "新一年做好这4件事，越来越有福气",
+                date: "2025-02-01",
+                url: "../peoples_daily/2025-02/2025-02-01.html"
+            }, {
+                title: "525，我爱我",
+                date: "2024-05-25",
+                url: "../peoples_daily/2024-05/2024-5-25.html"
+            }, {
+                title: "一个人最可贵的气质，是这三点",
+                date: "2024-05-24",
+                url: "../peoples_daily/2024-05/2024-5-24.html"
+            }, {
+                title: "记住生命中对你好的人",
+                date: "2024-05-23",
+                url: "../peoples_daily/2024-05/2024-5-23.html"
+            }, {
+                title: "一个人的好运，离不开这三点",
+                date: "2024-05-22",
+                url: "../peoples_daily/2024-05/2024-5-22.html"
+            }, {
+                title: "这三种人，遇到了请深交",
+                date: "2024-05-21",
+                url: "../peoples_daily/2024-05/2024-5-21.html"
+            }, {
+                title: "小得盈满，爱逢其时",
+                date: "2024-05-20",
+                url: "../peoples_daily/2024-05/2024-5-20.html"
+            }, {
+                title: "好的人生，离不开这三个字",
+                date: "2024-05-19",
+                url: "../peoples_daily/2024-05/2024-5-19.html"
+            }, {
+                title: "这篇夜读，无价！",
+                date: "2024-05-18",
+                url: "../peoples_daily/2024-05/2024-5-18.html"
+            }, {
+                title: "真正厉害的人，都拥有成长型思维",
+                date: "2024-05-17",
+                url: "../peoples_daily/2024-05/2024-5-17.html"
+            }, {
+                title: "做对五件事，保持好状态",
+                date: "2024-05-16",
+                url: "../peoples_daily/2024-05/2024-5-16.html"
+            }, {
+                title: "有一种了不起的能力，叫稳得住",
+                date: "2024-05-15",
+                url: "../peoples_daily/2024-05/2024-5-15.html"
+            }, {
+                title: "人的一生，永远不要弄破两样东西",
+                date: "2024-05-14",
+                url: "../peoples_daily/2024-05/2024-5-14.html"
+            }, {
+                title: "保持快乐的4个秘诀",
+                date: "2024-05-13",
+                url: "../peoples_daily/2024-05/2024-5-13.html"
+            }, {
+                title: "全世界，只有你和我真正分享过心跳",
+                date: "2024-05-12",
+                url: "../peoples_daily/2024-05/2024-5-12.html"
+            }, {
+                title: "人与人之间最好的关系：遇事靠谱，懂得感恩",
+                date: "2024-05-11",
+                url: "../peoples_daily/2024-05/2024-5-11.html"
+            }, {
+                title: "先有丰富的自己，才有丰盈的人生",
+                date: "2024-05-10",
+                url: "../peoples_daily/2024-05/2024-5-10.html"
+            }, {
+                title: "能成事的人，都是利用时间的高手",
+                date: "2024-05-09",
+                url: "../peoples_daily/2024-05/2024-5-09.html"
+            }, {
+                title: "沉下心，慢慢变好",
+                date: "2024-05-08",
+                url: "../peoples_daily/2024-05/2024-5-08.html"
+            }, {
+                title: "现在，就是你开始的最佳时机",
+                date: "2024-05-07",
+                url: "../peoples_daily/2024-05/2024-5-07.html"
+            }, {
+                title: "想要保持健康，不妨坚持这5件事",
+                date: "2024-05-06",
+                url: "../peoples_daily/2024-05/2024-5-06.html"
+            }, {
+                title: "体谅别人，也是善待自己",
+                date: "2024-05-05",
+                url: "../peoples_daily/2024-05/2024-5-05.html"
+            }, {
+                title: "青年节，致自己",
+                date: "2024-05-04",
+                url: "../peoples_daily/2024-05/2024-5-04.html"
+            }, {
+                title: "一个家庭，遇事最好的处理方式",
+                date: "2024-05-03",
+                url: "../peoples_daily/2024-05/2024-5-03.html"
+            }, {
+                title: "学会接纳自己，也是一项重要的能力",
+                date: "2024-05-02",
+                url: "../peoples_daily/2024-05/2024-5-02.html"
+            }, {
+                title: "致五月：心怀热爱，追光前行",
+                date: "2024-05-01",
+                url: "../peoples_daily/2024-05/2024-5-01.html"
+            }, {
+                title: "真正厉害的人，都很会休息",
+                date: "2024-04-30",
+                url: "../peoples_daily/2024-04/2024-4-30.html"
+            }, {
+                title: "一个人“开窍”的四个表现",
+                date: "2024-04-29",
+                url: "../peoples_daily/2024-04/2024-4-29.html"
+            }, {
+                title: "好的人生，拼的是扛事能力和自愈能力",
+                date: "2024-04-28",
+                url: "../peoples_daily/2024-04/2024-4-28.html"
+            }, {
+                title: "好的感情，贵在相处舒服",
+                date: "2024-04-27",
+                url: "../peoples_daily/2024-04/2024-4-27.html"
+            }, {
+                title: "内心有光，是一个人最美的模样",
+                date: "2024-04-26",
+                url: "../peoples_daily/2024-04/2024-4-26.html"
+            }, {
+                title: "真正的自律，是为自己的人生负责",
+                date: "2024-04-25",
+                url: "../peoples_daily/2024-04/2024-4-25.html"
+            }, {
+                title: "今晚，和杨利伟一起体验《太空一日》",
+                date: "2024-04-24",
+                url: "../peoples_daily/2024-04/2024-4-24.html"
+            }, {
+                title: "读书，就是低着头向上看",
+                date: "2024-04-23",
+                url: "../peoples_daily/2024-04/2024-4-23.html"
+            }, {
+                title: "这世上最美好的事，大概就是拥有热爱",
+                date: "2024-04-22",
+                url: "../peoples_daily/2024-04/2024-4-22.html"
+            }, {
+                title: "和那个让你笑的人在一起",
+                date: "2024-04-21",
+                url: "../peoples_daily/2024-04/2024-4-21.html"
+            }, {
+                title: "一个人最大的教养，就藏在这3句话里",
+                date: "2024-04-20",
+                url: "../peoples_daily/2024-04/2024-4-20.html"
+            }, {
+                title: "幸福的人生，需要这三种心态",
+                date: "2024-04-19",
+                url: "../peoples_daily/2024-04/2024-4-19.html"
+            }, {
+                title: "激发潜能的5个好习惯，值得一试",
+                date: "2024-04-18",
+                url: "../peoples_daily/2024-04/2024-4-18.html"
+            }, {
+                title: "越简单的人，往往越厉害",
+                date: "2024-04-17",
+                url: "../peoples_daily/2024-04/2024-4-17.html"
+            }, {
+                title: "让人一生受益的5件小事",
+                date: "2024-04-16",
+                url: "../peoples_daily/2024-04/2024-4-16.html"
+            }, {
+                title: "最简单的幸福：有家回，有人等，心中有爱",
+                date: "2024-04-15",
+                url: "../peoples_daily/2024-04/2024-4-15.html"
+            }, {
+                title: "这是一篇看完就想动起来的夜读",
+                date: "2024-04-14",
+                url: "../peoples_daily/2024-04/2024-4-14.html"
+            }, {
+                title: "想念的人，要常联系",
+                date: "2024-04-13",
+                url: "../peoples_daily/2024-04/2024-4-13.html"
+            }, {
+                title: "提升自己最好的方式",
+                date: "2024-04-12",
+                url: "../peoples_daily/2024-04/2024-4-12.html"
+            }, {
+                title: "保持年轻的人，都做对了这4件事",
+                date: "2024-04-11",
+                url: "../peoples_daily/2024-04/2024-4-11.html"
+            }, {
+                title: "5个微习惯，让你的生活越变越好",
+                date: "2024-04-10",
+                url: "../peoples_daily/2024-04/2024-4-10.html"
+            }, {
+                title: "最好的感情，是相互成就",
+                date: "2024-04-08",
+                url: "../peoples_daily/2024-04/2024-4-08.html"
+            }, {
+                title: "生活不会辜负用心的人",
+                date: "2024-04-07",
+                url: "../peoples_daily/2024-04/2024-4-07.html"
+            }, {
+                title: "坚持做这5件事，让自己更充实",
+                date: "2024-04-06",
+                url: "../peoples_daily/2024-04/2024-4-06.html"
+            }, {
+                title: "最好的生活状态：忙时有序，闲时有趣",
+                date: "2024-04-05",
+                url: "../peoples_daily/2024-04/2024-4-05.html"
+            }, {
+                title: "最好的思念，是认真生活",
+                date: "2024-04-04",
+                url: "../peoples_daily/2024-04/2024-4-04.html"
+            }, {
+                title: "有一种感恩，是理解别人的付出",
+                date: "2024-04-03",
+                url: "../peoples_daily/2024-04/2024-4-03.html"
+            }, {
+                title: "真正厉害的人：能自知，常自律，懂自愈",
+                date: "2024-04-02",
+                url: "../peoples_daily/2024-04/2024-4-02.html"
+            }, {
+                title: "如果你要写春天，就不能只写春天",
+                date: "2024-04-01",
+                url: "../peoples_daily/2024-04/2024-4-01.html"
+            }
+        ]
+        // 分页管理器 
+        class PaginationManager {
+            // constructor(data, itemsPerPage) {
+            //     this.data  = data;
+            //     this.itemsPerPage  = itemsPerPage;
+            //     this.totalPages  = Math.ceil(data.length  / itemsPerPage);
+
+            //     // 从URL参数获取当前页码 
+            //     const urlParams = new URLSearchParams(window.location.search); 
+            //     let initialPage = parseInt(urlParams.get('page'))  || 1;
+            //     initialPage = Math.max(1,  Math.min(initialPage,  this.totalPages)); 
+            //     this.currentPage  = initialPage;
+
+            //     // 同步修正URL参数 
+            //     if (initialPage !== parseInt(urlParams.get('page')))  {
+            //         this.updateURL(); 
+            //     }
+            // }
+            constructor(data, itemsPerPage) {
+                this.data = data;
+                this.itemsPerPage = itemsPerPage;
+                this.totalPages = Math.ceil(data.length / itemsPerPage);
+
+                // 自动同步URL参数 
+                const urlParams = new URLSearchParams(location.search);
+                let initialPage = parseInt(urlParams.get('page')) || 1;
+                this.currentPage = Math.max(1, Math.min(initialPage, this.totalPages));
+
+                // 若初始页码需修正立刻更新URL 
+                if (initialPage !== this.currentPage) {
+                    this.updateURL();
+                }
+            }
+            get currentPage() {
+                return this._currentPage;
+            }
+
+            set currentPage(value) {
+                const oldPage = this._currentPage;
+                this._currentPage = Math.max(1, Math.min(value, this.totalPages));
+
+                // 当页码实际变更时更新 
+                if (oldPage !== this._currentPage) {
+                    this.updateURL();
+                }
+            }
+            getCurrentPageData() {
+                const start = (this.currentPage - 1) * this.itemsPerPage;
+                const end = start + this.itemsPerPage;
+                return this.data.slice(start, end);
+            }
+
+            prevPage() {
+                if (this.currentPage > 1) this.currentPage--;
+            }
+
+            nextPage() {
+                if (this.currentPage < this.totalPages) this.currentPage++;
+            }
+
+            goToPage(page) {
+                if (page >= 1 && page <= this.totalPages) {
+                    this.currentPage = page;
+                }
+            }
+            updateURL() {
+                const url = new URL(location);
+                url.searchParams.set('page', this._currentPage);
+                history.pushState({ page: this._currentPage }, '', url);
+            }
+
+            // 保持原有分页方法...
+        }
+
+        // 修改更新视图方法 
+        // function updateView() {
+        //     renderArticles();
+        //     renderPagination();
+        //     pagination.updateURL();  // 同步状态到URL 
+        // }
+        function updateView(fromHistory = false) {
+            if (!fromHistory) {
+                const url = new URL(window.location);
+                url.searchParams.set('page', pagination.currentPage);
+                history.replaceState({ internal: true }, '', url);
+            }
+
+            renderArticles();
+            renderPagination();
+        }
+        // 增加浏览器前进/后退监听 
+        // window.addEventListener('popstate',  () => {
+        //     // 当历史记录变化时重新初始化 
+        //     pagination.currentPage  = new URLSearchParams(window.location.search).get('page')  || 1;
+        //     updateView();
+        // });
+        window.addEventListener('popstate', (event) => {
+            if (event.state?.internal) {
+                const params = new URLSearchParams(window.location.search);
+                const page = parseInt(params.get('page')) || 1;
+                if (page !== pagination.currentPage) {
+                    pagination.currentPage = page;
+                    updateView(true); // 避免重复记录历史 
+                }
+            }
+        });
+        // 初始化分页器（每页21条）
+        const pagination = new PaginationManager(listData, 21);
+
+        // 卡片生成函数（保留原有逻辑）
+        function createArticleCard(article) {
+            const card = document.createElement('div');
+            card.className = 'article-card';
+            card.innerHTML = `
+                <h3 class="card-title">${article.title}</h3> 
+                <p class="card-date">${new Date(article.date).toLocaleDateString()}</p> 
+            `;
+            card.addEventListener('click', () => {
+                // const currentPage = pagination.currentPage; 
+                // window.location.href  = `${article.url}?from_page=${currentPage}`; 
+                window.location.href = article.url;
+            });
+            return card;
+        }
+
+        // 渲染文章列表 
+        function renderArticles() {
+            const container = document.getElementById('articlesContainer');
+            container.innerHTML = ''; // 清空当前内容 
+            pagination.getCurrentPageData().forEach(article => {
+                container.appendChild(createArticleCard(article));
+            });
+        }
+
+        // 渲染分页控件 
+        function renderPagination() {
+            const container = document.getElementById('paginationContainer');
+            container.innerHTML = '';
+
+            // 上一页按钮 
+            const prevButton = document.createElement('button');
+            prevButton.className = 'pagination-btn';
+            prevButton.innerHTML = '上一页';
+            prevButton.disabled = pagination.currentPage === 1;
+            prevButton.addEventListener('click', () => {
+                pagination.prevPage();
+                updateView();
+            });
+
+            // 页码按钮 
+            for (let i = 1; i <= pagination.totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.className = `pagination-btn ${i === pagination.currentPage ? 'active' : ''}`;
+                pageButton.textContent = i;
+                pageButton.addEventListener('click', () => {
+                    pagination.goToPage(i);
+                    updateView();
+                });
+                container.appendChild(pageButton);
+            }
+
+            // 下一页按钮 
+            const nextButton = document.createElement('button');
+            nextButton.className = 'pagination-btn';
+            nextButton.innerHTML = '下一页';
+            nextButton.disabled = pagination.currentPage === pagination.totalPages;
+            nextButton.addEventListener('click', () => {
+                pagination.nextPage();
+                updateView();
+            });
+
+            container.prepend(prevButton);
+            container.append(nextButton);
+        }
+
+        // 同时更新列表和分页状态 
+        function updateView() {
+            renderArticles();
+            renderPagination();
+        }
+
+        // 初始化视图 
+        document.addEventListener('DOMContentLoaded', updateView);
+    </script>
+</body>
+
+</html>

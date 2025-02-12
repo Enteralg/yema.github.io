@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        /* 新增图片相关样式 */
+        .article-image {
+            width: 100%;
+            max-width: 720px;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .article-image:hover {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.2s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .article-title {
+            color: #1a1a1a;
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+
+        .article-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .article-content {
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .article-section {
+            margin-bottom: 1.8rem;
+        }
+
+        .article-section h2 {
+            color: #007bff;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .article-section p {
+            margin-bottom: 1rem;
+            text-indent: 2em;
+        }
+
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+            margin: 1rem 0;
+        }
+
+        /* 新增图片布局样式 */
+        .image-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .float-left {
+            float: left;
+            margin-right: 1.5rem;
+            max-width: 50%;
+        }
+
+        .float-right {
+            float: right;
+            margin-left: 1.5rem;
+            max-width: 50%;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .article-card {
+                padding: 1.5rem;
+            }
+
+            .article-title {
+                font-size: 1.8rem;
+            }
+
+            .article-image {
+                margin: 1rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <article class="article-card">
+            <h1 class="article-title">致五月：心怀热爱，追光前行</h1>
+            <!-- <div class="article-meta">
+                <span>作者：李明</span>
+                <span>发布日期：2023年10月20日</span>
+                <span>阅读时间：8分钟</span>
+            </div> -->
+
+            <div class="article-content">
+                <!-- <figure class="image-container full-width">
+                    <img src="../../images//article/2025-02-01/640.png" alt="拥有平和心态，生活才会处处可爱" class="article-image">
+                    <figcaption class="image-caption">拥有平和心态，生活才会处处可爱</figcaption>
+                </figure> -->
+                <!-- <div class="article-section">
+                    <p>春节假期即将结束，明天我们将迎来蛇年开工第一天。面对崭新的一年，我们也应该刷新自己，安顿好自己的身心，打理好自己的生活，以最好的状态迎接新一年。</p>
+                </div> -->
+                <div class="article-section">
+                    <h2>五月，是浪漫的季节</h2>
+                    <p>缱绻的春风还未远走，夏日的蝉鸣已落满枝头。草木竞相繁茂，大地满目葱茏。</p>
+                    <p>再见了，桃李芳菲的四月；你好啊，诗情画意的五月。</p>
+                    <p>五月，阳光正好，微风不燥。走进初夏的光影之中，去看山间森林的繁茂，漫步在雨后清新的林荫小道，让明媚的阳光晒干潮湿的心情，让和煦的暖风吹散生活的烦恼。</p>
+                    <p>五月，让我们把初夏的盎然生机，定格在眼里、珍藏于心底，为自己充电蓄力，在未来的路上更好地前行。</p>
+
+                </div>
+
+                <div class="article-section">
+                    <h2>五月，是耕耘的季节</h2>
+                    <p>春种秋收，夏生长。只有在五六月洒下汗水，到了九十月才会硕果累累。</p>
+                    <p>五月，是辛勤劳动的季节，也是耕耘人生的季节。2024年已经过去了三分之一，还记得你年初定下的目标吗？</p>
+                    <p>五月，给自己一个新的开始吧。别再三分钟热度，朝着你想去的地方奋力奔跑；别再拖延，今天就迈出勇敢的第一步。</p>
+                    <p>人生最好的姿态就是努力向上。五月，让我们带上一年的期许，心怀热爱，追光前行！</p>
+                    <!-- <div class="highlight">
+                        <p>"人工智能将是21世纪最具变革性的技术之一，其影响力可能超过电力和互联网的发明。" —— 著名计算机科学家吴恩达</p>
+                    </div> -->
+                </div>
+
+                <div class="article-section">
+                    <h2>五月，是青春的季节</h2>
+                    <p>如果把一年比作人的一生，五月正好是一个人的青年时期，也是一年中最有朝气的时候。</p>
+                    <p>青春并不只限于某一个年龄段，更代表着充满活力与勇气的心态。</p>
+                    <p>心若年轻，老去的只有年龄，不老的是那股精气神。不要让年龄限制自己，只要心态好，每一年都是“当打之年”。</p>
+                    <p>既然不能阻止皱纹爬上额头，便阻止皱纹爬上心头吧。五月，愿你能保持年轻的心态，不惆怅过往，不忧虑未来，过好当下的每一天。</p>
+                </div>
+
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // 可以在此处添加交互功能
+        document.querySelectorAll('.article-section').forEach(section => {
+            section.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+        const backButton = document.getElementById('backButton'); 
+        backButton.addEventListener('click',  () => {
+            const urlParams = new URLSearchParams(window.location.search); 
+            window.location.href  = `/articles?page=${urlParams.get('from_page')  || 1}`;
+        });
+        // 简单的动画效果
+        const cards = document.querySelectorAll('.article-card');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s, transform 0.6s';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
