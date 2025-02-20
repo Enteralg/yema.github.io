@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>样式案例</title>
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
-    
+    <ul id="nav">
+        <li class="slide1"></li>
+        <li class="slide2"></li>
+        <li><a href="../index.html" class="read-at-night">夜读</a></li>
+        <li><a href="#" class="styles-case">样式案例</a></li>
+    </ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../js/read.js"></script>
+    <script>
+        var currentWidth = $("#nav li:nth-of-type(4) a").parent("li").width();
+        var current = $("li:nth-of-type(4) a").position();
+        $("#nav .slide1").css({ left: +current.left, width: currentWidth });
+    </script>
 </body>
 </html>

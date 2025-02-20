@@ -6,16 +6,30 @@
 a {
     text-decoration: none;
 }
-/* 核心解决方案 */
-html {
-    /* overflow: auto; 必须保留滚动功能 */
-    /* scrollbar-width: none; Firefox */
-    /* -ms-overflow-style: none; IE/Edge */
+/* 全局滚动条样式 */
+::-webkit-scrollbar {
+    width: 10px;          /* 垂直滚动条宽度 */
+    height: 10px;         /* 水平滚动条高度 */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;  /* 轨道透明 */
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #4b55636e;      /* 滑块颜色 */
+    border-radius: 10px;
+    border: 2px solid rgba(200, 25, 25, 0);  /* 白色边框 */
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #374151;      /* 悬停颜色 */
   }
 body {
     width: 100%;  
     display: flex;
-    background: url(../images/background/body.jpg) no-repeat fixed center;
+    background: url(../images/background/body.jpg) fixed;
     background-size: 100vw 100vh;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -23,33 +37,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     overflow-x: hidden;
-    margin-right: calc(-1 * (100vw - 100%)); /* 抵消滚动条宽度 */
-
-}
-
-body::-webkit-scrollbar-track {
-    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
-    /* border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0); */
-}
-
-body::-webkit-scrollbar {
-    /* position: absolute;
-    right: 0;
-    top: 0;
-    width: 12px;
-    background-color: rgba(0, 0, 0, 0); */
-    /* display: none; */
-    /* width: 8px;          滚动条视觉宽度 */
-    /* background: transparent; 轨道透明 */
-}
-
-body::-webkit-scrollbar-thumb {
-    /* border-radius: 10px; */
-    /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3); */
-
-    /* background-color: #e7d2d200; */
-    /* background: rgba(128,128,128,0.5); 半透明灰色 */
+    overflow-y: overlay;      /* 关键：滚动条覆盖模式 */
 }
 
 

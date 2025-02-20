@@ -4,45 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>支持分页的文章卡片</title>
-
+    <title>人民日报夜读</title>
+    <link rel="stylesheet" href="../css/index.css">
     <style>
         /* 基础样式重置 */
-        * {
+        /* * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', '微软雅黑', sans-serif;
-        }
+        } */
 
         /* 隐藏所有滚动条但保留滚动功能 */
-        html {
+        /* html {
             overflow: auto;
-            /* 必须保留滚动功能 */
+            /* 必须保留滚动功能 
             scrollbar-width: none;
-            /* Firefox */
+            /* Firefox 
             -ms-overflow-style: none;
-            /* IE/Edge */
-        }
+            /* IE/Edge 
+        } */
 
         /* Webkit浏览器隐藏滚动条 */
-        ::-webkit-scrollbar {
+        /* ::-webkit-scrollbar {
             display: none;
-            /* Chrome/Safari/Opera */
-        }
-
+            /* Chrome/Safari/Opera 
+        } */
+        /* 
         body {
             background-color: #f8f9fa;
             padding: 2rem 1rem;
             min-height: 100vh;
             background-color: #00000000 !important;
 
-        }
+        } */
 
         /* 容器布局 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
+
         }
 
         /* 卡片网格布局 */
@@ -154,18 +155,25 @@
 </head>
 
 <body>
-
+    <ul id="nav">
+        <li class="slide1"></li>
+        <li class="slide2"></li>
+        <li><a href="../index.html" class="read-at-night">夜读</a></li>
+        <li><a href="../pages/stylesCase.html" class="styles-case">样式案例</a></li>
+    </ul>
     <div class="container">
         <div class="articles-grid" id="articlesContainer"></div>
         <div class="pagination-container" id="paginationContainer"></div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="./js/read.js"></script>
     <script>
         var currentWidth = $("#nav li:nth-of-type(3) a").parent("li").width();
         var current = $("li:nth-of-type(3) a").position();
         $("#nav .slide1").css({ left: +current.left, width: currentWidth });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../js/read.js">
+    </script>
+
     <script>
         const listData = [
             {

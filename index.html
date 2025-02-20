@@ -4,41 +4,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog</title>
+    <title>人民日报夜读</title>
     <link rel="stylesheet" href="css/index.css">
     <style>
-        /* 响应式适配（16:9比例示例） */
-        .responsive-iframe {
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%;
-            /* 16:9比例计算：9/16=56.25% */
-            position: relative;
+        /* 容器布局 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
 
         }
 
-        .responsive-iframe .full-width-iframe {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
+        /* 卡片网格布局 */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        /* 卡片样式设计 */
+        .article-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 卡片内容排版 */
+        .card-title {
+            color: #2d3436;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .card-date {
+            color: #636e72;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+
+            .article-card {
+                padding: 1.25rem;
+            }
+        }
+
+        /* 加载动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .article-card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* 保留原有样式基础上新增分页相关样式 */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+            gap: 0.5rem;
+        }
+
+        .pagination-btn {
+            padding: 8px 14px;
             border: none;
-            /* 去除边框 */
-            margin: 0;
-            padding: 0;
-            display: block;
-            /* 隐藏滚动条方案 */
-            scrollbar-width: none;
-            /* Firefox */
-            -ms-overflow-style: none;
-            /* IE/Edge */
+            border-radius: 6px;
+            background: #f1f3f5;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
         }
 
-        /* Chrome/Safari隐藏滚动条 */
-        .full-width-iframe::-webkit-scrollbar {
-            display: none;
+        .pagination-btn:hover:not(:disabled) {
+            background: #6c5ce7;
+            color: white;
+            transform: translateY(-1px);
         }
+
+        .pagination-btn.active {
+            background: #6c5ce7;
+            color: white;
+            box-shadow: 0 2px 4px rgba(108, 92, 231, 0.3);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* 保留原有卡片样式... */
     </style>
 </head>
 
@@ -46,270 +126,477 @@
     <ul id="nav">
         <li class="slide1"></li>
         <li class="slide2"></li>
-        <!-- <li><a href="../index.html">首页</a></li> -->
-        <li><a href="#" class="read-at-night">夜读</a></li>
-        <li><a href="#" class="styles-case">样式案例</a></li>
-        <!-- <li><a href="#"></a></li>
-        <li><a href="#"></a></li> -->
+        <li><a href="" class="read-at-night">夜读</a></li>
+        <li><a href="/pages/stylesCase.html" class="styles-case">样式案例</a></li>
     </ul>
-    <div class="responsive-iframe">
-        <iframe src="./pages/readAtNight.html" class="full-width-iframe" scrolling="no"></iframe>
+    <div class="container">
+        <div class="articles-grid" id="articlesContainer"></div>
+        <div class="pagination-container" id="paginationContainer"></div>
     </div>
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="./js/read.js"></script>
-<script>
-
-    var currentWidth = $("#nav li:nth-of-type(3) a").parent("li").width();
-    var current = $("li:nth-of-type(3) a").position();
-    $("#nav .slide1").css({ left: +current.left, width: currentWidth });
-    // 选择所有匹配的元素
-    document.querySelectorAll('.styles-case').forEach(element => {
-        // 为每个元素添加点击事件监听
-        element.addEventListener('click', function (e) {
-            // 这里编写点击后的处理逻辑
-            console.log('元素被点击', e.target);
-            // 获取第一个匹配的iframe元素
-            const iframe = document.querySelector('iframe.full-width-iframe');
-
-            // 安全修改src（推荐方案）
-            if (iframe) {
-                // 推荐使用完整的URL格式
-                iframe.src = './pages/stylesCase.html';
-
-                // 可选：添加加载事件监听
-                iframe.onload = () => {
-                    console.log('iframe内容已加载');
-                };
-
-                // 可选：处理错误
-                iframe.onerror = () => {
-                    console.error('iframe加载失败');
-                };
-            } else {
-                console.warn('未找到匹配的iframe元素');
-            }
-        });
-    });
-    document.querySelectorAll('.read-at-night').forEach(element => {
-        // 为每个元素添加点击事件监听
-        element.addEventListener('click', function (e) {
-            // 这里编写点击后的处理逻辑
-            console.log('元素被点击', e.target);
-            // 获取第一个匹配的iframe元素
-            const iframe = document.querySelector('iframe.full-width-iframe');
-
-            // 安全修改src（推荐方案）
-            if (iframe) {
-                // 推荐使用完整的URL格式
-                iframe.src = './pages/readAtNight.html';
-
-                // 可选：添加加载事件监听
-                iframe.onload = () => {
-                    console.log('iframe内容已加载');
-                };
-
-                // 可选：处理错误
-                iframe.onerror = () => {
-                    console.error('iframe加载失败');
-                };
-            } else {
-                console.warn('未找到匹配的iframe元素');
-            }
-        });
-    });
-</script>
-
-</html>
-<!-- <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>动态页面切换</title>
-    <style>
-        /* 保持之前按钮样式不变 */
-        .button-group { /* 保持一致 */ }
-        .menu-button { /* 保持不变 */ }
-        .menu-button.active  { /* 保持原有激活样式 */ }
- 
-        /* 内容容器样式 */
-        .content-container {
-            position: relative;
-            min-height: 400px;
-            margin: 20px;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
- 
-        /* 加载动画 */
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255,255,255,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-        }
- 
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #2196F3;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
- 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
- 
-        /* 错误提示 */
-        .error-message {
-            color: #ff4444;
-            padding: 20px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="button-group">
-        <button 
-            class="menu-button active" 
-            onclick="loadPage('page1.html',  this)"
-        >
-            功能一 
-        </button>
-        <button 
-            class="menu-button" 
-            onclick="loadPage('page2.html',  this)"
-        >
-            功能二 
-        </button>
-        <button 
-            class="menu-button" 
-            onclick="loadPage('page3.html',  this)"
-        >
-            功能三 
-        </button>
-    </div>
- 
-    <div class="content-container">
-        <div class="loading-overlay">
-            <div class="loading-spinner"></div>
-        </div>
-        <div id="page-content">
-             初始默认内容 
-            <h2>欢迎使用系统</h2>
-            <p>请点击上方按钮加载对应功能</p>
-        </div>
-    </div>
- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/read.js"></script>
     <script>
-        let currentButton = document.querySelector('.menu-button.active'); 
-        const contentContainer = document.getElementById('page-content'); 
-        const loadingOverlay = document.querySelector('.loading-overlay'); 
- 
-        // 内容缓存池 
-        const pageCache = new Map();
- 
-        async function loadPage(url, button) {
-            // 如果是当前激活按钮直接返回 
-            if (button === currentButton) return;
- 
-            // 显示加载状态 
-            showLoading();
- 
-            try {
-                // 检查缓存 
-                let content;
-                if (pageCache.has(url))  {
-                    content = pageCache.get(url); 
-                } else {
-                    // 异步获取页面内容 
-                    const response = await fetch(url);
-                    if (!response.ok)  throw new Error('加载失败');
-                    content = await response.text(); 
-                    pageCache.set(url,  content);
-                }
- 
-                // 更新界面 
-                updateActiveButton(button);
-                updateHistory(url);
-                renderContent(content);
-            } catch (error) {
-                showError('内容加载失败，请稍后重试');
-            } finally {
-                hideLoading();
+        var currentWidth = $("#nav li:nth-of-type(3) a").parent("li").width();
+        var current = $("li:nth-of-type(3) a").position();
+        $("#nav .slide1").css({ left: +current.left, width: currentWidth });
+    </script>
+    <script>
+        const listData = [
+            {
+                title: "独处，是一种可贵的人生智慧",
+                date: "2025-02-19",
+                url: "../peoples_daily/2025-02/2025-02-19.html"
+            },
+            {
+                title: "变优秀最直接的方法：学会复盘",
+                date: "2025-02-18",
+                url: "../peoples_daily/2025-02/2025-02-18.html"
+            },
+            {
+                title: "《哪吒2》冲进前9！真正的高手都是长期主义者",
+                date: "2025-02-17",
+                url: "../peoples_daily/2025-02/2025-02-17.html"
+            },
+            {
+                title: "致开学：别害怕吃读书的苦，那是你通向未来的路",
+                date: "2025-02-16",
+                url: "../peoples_daily/2025-02/2025-02-16.html"
+            },
+            {
+                title: "懂得“翻篇”，是一种了不起的能力",
+                date: "2025-02-15",
+                url: "../peoples_daily/2025-02/2025-02-15.html"
+            },
+            {
+                title: "珍惜那个和你聊得来的人",
+                date: "2025-02-07",
+                url: "../peoples_daily/2025-02/2025-02-07.html"
+            }, {
+                title: "为人父母，一定要跟孩子说的7句话",
+                date: "2025-02-06",
+                url: "../peoples_daily/2025-02/2025-02-06.html"
+            }, {
+                title: "新年开工第一天，布局你的2025",
+                date: "2025-02-05",
+                url: "../peoples_daily/2025-02/2025-02-05.html"
+            }, {
+                title: "明天开工！是时候刷新自己了",
+                date: "2025-02-04",
+                url: "../peoples_daily/2025-02/2025-02-04.html"
+            }, {
+                title: "今日立春，立下一年好光景！",
+                date: "2025-02-03",
+                url: "../peoples_daily/2025-02/2025-02-03.html"
+            }, {
+                title: "新年自律的四个方法，做到一个就很棒",
+                date: "2025-02-02",
+                url: "../peoples_daily/2025-02/2025-02-02.html"
+            }, {
+                title: "新一年做好这4件事，越来越有福气",
+                date: "2025-02-01",
+                url: "../peoples_daily/2025-02/2025-02-01.html"
+            }, {
+                title: "525，我爱我",
+                date: "2024-05-25",
+                url: "../peoples_daily/2024-05/2024-5-25.html"
+            }, {
+                title: "一个人最可贵的气质，是这三点",
+                date: "2024-05-24",
+                url: "../peoples_daily/2024-05/2024-5-24.html"
+            }, {
+                title: "记住生命中对你好的人",
+                date: "2024-05-23",
+                url: "../peoples_daily/2024-05/2024-5-23.html"
+            }, {
+                title: "一个人的好运，离不开这三点",
+                date: "2024-05-22",
+                url: "../peoples_daily/2024-05/2024-5-22.html"
+            }, {
+                title: "这三种人，遇到了请深交",
+                date: "2024-05-21",
+                url: "../peoples_daily/2024-05/2024-5-21.html"
+            }, {
+                title: "小得盈满，爱逢其时",
+                date: "2024-05-20",
+                url: "../peoples_daily/2024-05/2024-5-20.html"
+            }, {
+                title: "好的人生，离不开这三个字",
+                date: "2024-05-19",
+                url: "../peoples_daily/2024-05/2024-5-19.html"
+            }, {
+                title: "这篇夜读，无价！",
+                date: "2024-05-18",
+                url: "../peoples_daily/2024-05/2024-5-18.html"
+            }, {
+                title: "真正厉害的人，都拥有成长型思维",
+                date: "2024-05-17",
+                url: "../peoples_daily/2024-05/2024-5-17.html"
+            }, {
+                title: "做对五件事，保持好状态",
+                date: "2024-05-16",
+                url: "../peoples_daily/2024-05/2024-5-16.html"
+            }, {
+                title: "有一种了不起的能力，叫稳得住",
+                date: "2024-05-15",
+                url: "../peoples_daily/2024-05/2024-5-15.html"
+            }, {
+                title: "人的一生，永远不要弄破两样东西",
+                date: "2024-05-14",
+                url: "../peoples_daily/2024-05/2024-5-14.html"
+            }, {
+                title: "保持快乐的4个秘诀",
+                date: "2024-05-13",
+                url: "../peoples_daily/2024-05/2024-5-13.html"
+            }, {
+                title: "全世界，只有你和我真正分享过心跳",
+                date: "2024-05-12",
+                url: "../peoples_daily/2024-05/2024-5-12.html"
+            }, {
+                title: "人与人之间最好的关系：遇事靠谱，懂得感恩",
+                date: "2024-05-11",
+                url: "../peoples_daily/2024-05/2024-5-11.html"
+            }, {
+                title: "先有丰富的自己，才有丰盈的人生",
+                date: "2024-05-10",
+                url: "../peoples_daily/2024-05/2024-5-10.html"
+            }, {
+                title: "能成事的人，都是利用时间的高手",
+                date: "2024-05-09",
+                url: "../peoples_daily/2024-05/2024-5-09.html"
+            }, {
+                title: "沉下心，慢慢变好",
+                date: "2024-05-08",
+                url: "../peoples_daily/2024-05/2024-5-08.html"
+            }, {
+                title: "现在，就是你开始的最佳时机",
+                date: "2024-05-07",
+                url: "../peoples_daily/2024-05/2024-5-07.html"
+            }, {
+                title: "想要保持健康，不妨坚持这5件事",
+                date: "2024-05-06",
+                url: "../peoples_daily/2024-05/2024-5-06.html"
+            }, {
+                title: "体谅别人，也是善待自己",
+                date: "2024-05-05",
+                url: "../peoples_daily/2024-05/2024-5-05.html"
+            }, {
+                title: "青年节，致自己",
+                date: "2024-05-04",
+                url: "../peoples_daily/2024-05/2024-5-04.html"
+            }, {
+                title: "一个家庭，遇事最好的处理方式",
+                date: "2024-05-03",
+                url: "../peoples_daily/2024-05/2024-5-03.html"
+            }, {
+                title: "学会接纳自己，也是一项重要的能力",
+                date: "2024-05-02",
+                url: "../peoples_daily/2024-05/2024-5-02.html"
+            }, {
+                title: "致五月：心怀热爱，追光前行",
+                date: "2024-05-01",
+                url: "../peoples_daily/2024-05/2024-5-01.html"
+            }, {
+                title: "真正厉害的人，都很会休息",
+                date: "2024-04-30",
+                url: "../peoples_daily/2024-04/2024-4-30.html"
+            }, {
+                title: "一个人“开窍”的四个表现",
+                date: "2024-04-29",
+                url: "../peoples_daily/2024-04/2024-4-29.html"
+            }, {
+                title: "好的人生，拼的是扛事能力和自愈能力",
+                date: "2024-04-28",
+                url: "../peoples_daily/2024-04/2024-4-28.html"
+            }, {
+                title: "好的感情，贵在相处舒服",
+                date: "2024-04-27",
+                url: "../peoples_daily/2024-04/2024-4-27.html"
+            }, {
+                title: "内心有光，是一个人最美的模样",
+                date: "2024-04-26",
+                url: "../peoples_daily/2024-04/2024-4-26.html"
+            }, {
+                title: "真正的自律，是为自己的人生负责",
+                date: "2024-04-25",
+                url: "../peoples_daily/2024-04/2024-4-25.html"
+            }, {
+                title: "今晚，和杨利伟一起体验《太空一日》",
+                date: "2024-04-24",
+                url: "../peoples_daily/2024-04/2024-4-24.html"
+            }, {
+                title: "读书，就是低着头向上看",
+                date: "2024-04-23",
+                url: "../peoples_daily/2024-04/2024-4-23.html"
+            }, {
+                title: "这世上最美好的事，大概就是拥有热爱",
+                date: "2024-04-22",
+                url: "../peoples_daily/2024-04/2024-4-22.html"
+            }, {
+                title: "和那个让你笑的人在一起",
+                date: "2024-04-21",
+                url: "../peoples_daily/2024-04/2024-4-21.html"
+            }, {
+                title: "一个人最大的教养，就藏在这3句话里",
+                date: "2024-04-20",
+                url: "../peoples_daily/2024-04/2024-4-20.html"
+            }, {
+                title: "幸福的人生，需要这三种心态",
+                date: "2024-04-19",
+                url: "../peoples_daily/2024-04/2024-4-19.html"
+            }, {
+                title: "激发潜能的5个好习惯，值得一试",
+                date: "2024-04-18",
+                url: "../peoples_daily/2024-04/2024-4-18.html"
+            }, {
+                title: "越简单的人，往往越厉害",
+                date: "2024-04-17",
+                url: "../peoples_daily/2024-04/2024-4-17.html"
+            }, {
+                title: "让人一生受益的5件小事",
+                date: "2024-04-16",
+                url: "../peoples_daily/2024-04/2024-4-16.html"
+            }, {
+                title: "最简单的幸福：有家回，有人等，心中有爱",
+                date: "2024-04-15",
+                url: "../peoples_daily/2024-04/2024-4-15.html"
+            }, {
+                title: "这是一篇看完就想动起来的夜读",
+                date: "2024-04-14",
+                url: "../peoples_daily/2024-04/2024-4-14.html"
+            }, {
+                title: "想念的人，要常联系",
+                date: "2024-04-13",
+                url: "../peoples_daily/2024-04/2024-4-13.html"
+            }, {
+                title: "提升自己最好的方式",
+                date: "2024-04-12",
+                url: "../peoples_daily/2024-04/2024-4-12.html"
+            }, {
+                title: "保持年轻的人，都做对了这4件事",
+                date: "2024-04-11",
+                url: "../peoples_daily/2024-04/2024-4-11.html"
+            }, {
+                title: "5个微习惯，让你的生活越变越好",
+                date: "2024-04-10",
+                url: "../peoples_daily/2024-04/2024-4-10.html"
+            }, {
+                title: "最好的感情，是相互成就",
+                date: "2024-04-08",
+                url: "../peoples_daily/2024-04/2024-4-08.html"
+            }, {
+                title: "生活不会辜负用心的人",
+                date: "2024-04-07",
+                url: "../peoples_daily/2024-04/2024-4-07.html"
+            }, {
+                title: "坚持做这5件事，让自己更充实",
+                date: "2024-04-06",
+                url: "../peoples_daily/2024-04/2024-4-06.html"
+            }, {
+                title: "最好的生活状态：忙时有序，闲时有趣",
+                date: "2024-04-05",
+                url: "../peoples_daily/2024-04/2024-4-05.html"
+            }, {
+                title: "最好的思念，是认真生活",
+                date: "2024-04-04",
+                url: "../peoples_daily/2024-04/2024-4-04.html"
+            }, {
+                title: "有一种感恩，是理解别人的付出",
+                date: "2024-04-03",
+                url: "../peoples_daily/2024-04/2024-4-03.html"
+            }, {
+                title: "真正厉害的人：能自知，常自律，懂自愈",
+                date: "2024-04-02",
+                url: "../peoples_daily/2024-04/2024-4-02.html"
+            }, {
+                title: "如果你要写春天，就不能只写春天",
+                date: "2024-04-01",
+                url: "../peoples_daily/2024-04/2024-4-01.html"
             }
+        ]
+        // 分页管理器 
+        class PaginationManager {
+            // constructor(data, itemsPerPage) {
+            //     this.data  = data;
+            //     this.itemsPerPage  = itemsPerPage;
+            //     this.totalPages  = Math.ceil(data.length  / itemsPerPage);
+
+            //     // 从URL参数获取当前页码 
+            //     const urlParams = new URLSearchParams(window.location.search); 
+            //     let initialPage = parseInt(urlParams.get('page'))  || 1;
+            //     initialPage = Math.max(1,  Math.min(initialPage,  this.totalPages)); 
+            //     this.currentPage  = initialPage;
+
+            //     // 同步修正URL参数 
+            //     if (initialPage !== parseInt(urlParams.get('page')))  {
+            //         this.updateURL(); 
+            //     }
+            // }
+            constructor(data, itemsPerPage) {
+                this.data = data;
+                this.itemsPerPage = itemsPerPage;
+                this.totalPages = Math.ceil(data.length / itemsPerPage);
+
+                // 自动同步URL参数 
+                const urlParams = new URLSearchParams(location.search);
+                let initialPage = parseInt(urlParams.get('page')) || 1;
+                this.currentPage = Math.max(1, Math.min(initialPage, this.totalPages));
+
+                // 若初始页码需修正立刻更新URL 
+                if (initialPage !== this.currentPage) {
+                    this.updateURL();
+                }
+            }
+            get currentPage() {
+                return this._currentPage;
+            }
+
+            set currentPage(value) {
+                const oldPage = this._currentPage;
+                this._currentPage = Math.max(1, Math.min(value, this.totalPages));
+
+                // 当页码实际变更时更新 
+                if (oldPage !== this._currentPage) {
+                    this.updateURL();
+                }
+            }
+            getCurrentPageData() {
+                const start = (this.currentPage - 1) * this.itemsPerPage;
+                const end = start + this.itemsPerPage;
+                return this.data.slice(start, end);
+            }
+
+            prevPage() {
+                if (this.currentPage > 1) this.currentPage--;
+            }
+
+            nextPage() {
+                if (this.currentPage < this.totalPages) this.currentPage++;
+            }
+
+            goToPage(page) {
+                if (page >= 1 && page <= this.totalPages) {
+                    this.currentPage = page;
+                }
+            }
+            updateURL() {
+                const url = new URL(location);
+                url.searchParams.set('page', this._currentPage);
+                history.pushState({ page: this._currentPage }, '', url);
+            }
+
+            // 保持原有分页方法...
         }
- 
-        function updateActiveButton(button) {
-            currentButton.classList.remove('active'); 
-            button.classList.add('active'); 
-            currentButton = button;
+
+        // 修改更新视图方法 
+        // function updateView() {
+        //     renderArticles();
+        //     renderPagination();
+        //     pagination.updateURL();  // 同步状态到URL 
+        // }
+        function updateView(fromHistory = false) {
+            if (!fromHistory) {
+                const url = new URL(window.location);
+                url.searchParams.set('page', pagination.currentPage);
+                history.replaceState({ internal: true }, '', url);
+            }
+
+            renderArticles();
+            renderPagination();
         }
- 
-        function renderContent(html) {
-            contentContainer.innerHTML  = html;
-            // 执行注入的脚本 
-            const scripts = contentContainer.getElementsByTagName('script'); 
-            Array.from(scripts).forEach(script  => {
-                const newScript = document.createElement('script'); 
-                newScript.text  = script.text; 
-                document.body.appendChild(newScript).parentNode.removeChild(newScript); 
+        // 增加浏览器前进/后退监听 
+        // window.addEventListener('popstate',  () => {
+        //     // 当历史记录变化时重新初始化 
+        //     pagination.currentPage  = new URLSearchParams(window.location.search).get('page')  || 1;
+        //     updateView();
+        // });
+        window.addEventListener('popstate', (event) => {
+            if (event.state?.internal) {
+                const params = new URLSearchParams(window.location.search);
+                const page = parseInt(params.get('page')) || 1;
+                if (page !== pagination.currentPage) {
+                    pagination.currentPage = page;
+                    updateView(true); // 避免重复记录历史 
+                }
+            }
+        });
+        // 初始化分页器（每页21条）
+        const pagination = new PaginationManager(listData, 21);
+
+        // 卡片生成函数（保留原有逻辑）
+        function createArticleCard(article) {
+            const card = document.createElement('div');
+            card.className = 'article-card';
+            card.innerHTML = `
+                <h3 class="card-title">${article.title}</h3> 
+                <p class="card-date">${new Date(article.date).toLocaleDateString()}</p> 
+            `;
+            card.addEventListener('click', () => {
+                // const currentPage = pagination.currentPage; 
+                // window.location.href  = `${article.url}?from_page=${currentPage}`; 
+                window.location.href = article.url;
+            });
+            return card;
+        }
+
+        // 渲染文章列表 
+        function renderArticles() {
+            const container = document.getElementById('articlesContainer');
+            container.innerHTML = ''; // 清空当前内容 
+            pagination.getCurrentPageData().forEach(article => {
+                container.appendChild(createArticleCard(article));
             });
         }
- 
-        function showLoading() {
-            loadingOverlay.style.display  = 'flex';
-            contentContainer.style.opacity  = '0.3';
-        }
- 
-        function hideLoading() {
-            loadingOverlay.style.display  = 'none';
-            contentContainer.style.opacity  = '1';
-        }
- 
-        function showError(message) {
-            contentContainer.innerHTML  = `
-                <div class="error-message">
-                    <h3>⚠️ 错误</h3>
-                    <p>${message}</p>
-                </div>
-            `;
-        }
- 
-        // 历史记录管理 
-        function updateHistory(url) {
-            history.pushState({  url }, '', `#${url}`);
-        }
- 
-        // 处理浏览器前进/后退 
-        window.addEventListener('popstate',  (event) => {
-            if (event.state?.url)  {
-                const button = Array.from(document.querySelectorAll('.menu-button')) 
-                    .find(btn => btn.onclick.toString().includes(event.state.url)); 
-                if (button) button.click(); 
+
+        // 渲染分页控件 
+        function renderPagination() {
+            const container = document.getElementById('paginationContainer');
+            container.innerHTML = '';
+
+            // 上一页按钮 
+            const prevButton = document.createElement('button');
+            prevButton.className = 'pagination-btn';
+            prevButton.innerHTML = '上一页';
+            prevButton.disabled = pagination.currentPage === 1;
+            prevButton.addEventListener('click', () => {
+                pagination.prevPage();
+                updateView();
+            });
+
+            // 页码按钮 
+            for (let i = 1; i <= pagination.totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.className = `pagination-btn ${i === pagination.currentPage ? 'active' : ''}`;
+                pageButton.textContent = i;
+                pageButton.addEventListener('click', () => {
+                    pagination.goToPage(i);
+                    updateView();
+                });
+                container.appendChild(pageButton);
             }
-        });
- 
-        // 初始加载Hash内容 
-        window.addEventListener('DOMContentLoaded',  () => {
-            if (location.hash)  {
-                const page = location.hash.substring(1); 
-                const button = Array.from(document.querySelectorAll('.menu-button')) 
-                    .find(btn => btn.onclick.toString().includes(page)); 
-                button?.click();
-            }
-        });
+
+            // 下一页按钮 
+            const nextButton = document.createElement('button');
+            nextButton.className = 'pagination-btn';
+            nextButton.innerHTML = '下一页';
+            nextButton.disabled = pagination.currentPage === pagination.totalPages;
+            nextButton.addEventListener('click', () => {
+                pagination.nextPage();
+                updateView();
+            });
+
+            container.prepend(prevButton);
+            container.append(nextButton);
+        }
+
+        // 同时更新列表和分页状态 
+        function updateView() {
+            renderArticles();
+            renderPagination();
+        }
+
+        // 初始化视图 
+        document.addEventListener('DOMContentLoaded', updateView);
     </script>
 </body>
-</html> -->
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>懂得“翻篇”，是一种了不起的能力</title>
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/read_article.css">
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <article class="article-card">
+            <h1 class="article-title">懂得“翻篇”，是一种了不起的能力</h1>
+            <!-- <div class="article-meta">
+                <span>作者：李明</span>
+                <span>发布日期：2023年10月20日</span>
+                <span>阅读时间：8分钟</span>
+            </div> -->
+
+            <div class="article-content">
+                <figure class="image-container full-width">
+                    <img src="../../images//article/2025-02-15/640 (2).jpg" alt="拥有翻篇的能力，才能看到更美的风景"
+                        class="article-image">
+                    <!-- <figcaption class="image-caption">小哪吒，继续冲！</figcaption> -->
+                </figure>
+                <div class="article-section">
+                    <h2>昨日的烦恼，翻篇</h2>
+                    <p>人生在世，或多或少都会遇到烦恼，但若总是耿耿于怀，最后伤害的往往是自己。
+                    </p>
+                    <p>“昨天的太阳，晒不干今天的衣裳。”学会给昨日的烦恼按下暂停键，不是逃避问题，而是腾出双手去迎接新的可能。
+                    </p>
+                    <p>人生这本书，翻过这一页，才能书写下一章。把心里的垃圾倒一倒，试着把“要是我当时”换成“下次我可以”，多多肯定自己，前路便豁然开朗。
+                     </p>
+                    <p>凡是过往，皆为序章。修炼好及时“翻篇”的能力，方能轻装上阵，以全新的姿态迎接新的曙光。</p>
+
+                </div>
+
+                <div class="article-section">
+                    <h2>过去的成就，翻篇</h2>
+                    <p>过去的日子里，一直很努力的你可能面对了很多挑战，也取得了令人骄傲的成就。</p>
+                    <p>然而，过去的成就再辉煌，都无法代表你的未来。一味沉浸于已有的成绩，很难有进步和成长。不因荣誉沾沾自喜，不因成就自满自大，懂得一切归零，才能以最好的状态轻装前行。</p>
+                    <p>倒空杯子，才能注入新的水。保持“空杯”心态，不断吐故纳新，带着好奇心和探索欲重新出发，迎接新的挑战，才有机会看见新的风景，创造更多的精彩。</p>
+
+                </div>
+
+                <div class="article-section">
+                    <h2>对完美的执念，翻篇</h2>
+                    <p>我们有时会因为一个决定反复思量，担心做出的选择不是最好的；或者为了一件事情寝食难安，试图找到完美的解决方案......总是苛求事事完美，心里的负担就可能会越来越重。</p>
+                    <p>其实，人生没有标准答案，不论选择了哪个选项，都会有收获也会有失去。尽力而为，不苛求完美，是一种智慧。</p>
+                    <p>放下“必须完美”的执念，不是妥协，而是给自己松绑。与其一味苛求完美的结果，不如全心全意沉浸在做好一件事的过程里。努力做事、热爱生活、珍惜当下，人生自有乐趣。</p>
+   
+                </div>
+            
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // 可以在此处添加交互功能
+        document.querySelectorAll('.article-section').forEach(section => {
+            section.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+        const backButton = document.getElementById('backButton');
+        backButton.addEventListener('click', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            window.location.href = `/articles?page=${urlParams.get('from_page') || 1}`;
+        });
+        // 简单的动画效果
+        const cards = document.querySelectorAll('.article-card');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s, transform 0.6s';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

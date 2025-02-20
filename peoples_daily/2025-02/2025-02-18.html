@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>变优秀最直接的方法：学会复盘</title>
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/read_article.css">
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <article class="article-card">
+            <h1 class="article-title">变优秀最直接的方法：学会复盘</h1>
+            <!-- <div class="article-meta">
+                <span>作者：李明</span>
+                <span>发布日期：2023年10月20日</span>
+                <span>阅读时间：8分钟</span>
+            </div> -->
+            <figure class="image-container full-width">
+                <img src="../../images//article/2025-02-18/640.jpg" alt="复盘既是在重新理解过去，也是在酝酿未来" class="article-image">
+                <figcaption class="image-caption">复盘既是在重新理解过去，也是在酝酿未来</figcaption>
+            </figure>
+            <div class="article-content">
+                <div class="article-section">
+                    <h2>复盘是一种<br>向自己学习的方式</h2>
+                    <p>有人在网上提问：“为什么听过了那么多大道理，却依然过不好这一生？”一个高赞回答说：“因为你没有及时复盘。”</p>
+                    <p>下完棋之后，棋手会重复多遍当时“走”棋的过程，并深入思考每一步的决策原因、后续策略以及是否有更好的“走法”。</p>
+                    <p>生活中，我们也可以通过对自己“做过的事”进行回顾和反思，对预期和结果的差距进行分析，提炼经验教训，从而指导未来的行动。这就是“复盘”。</p>
+                    <p>学习有三种方式：向书本学习、向他人学习、向自己学习，而最深刻的学习方式就是向自己学习。“复盘”，就是一种向自己学习的方式。</p>
+
+                </div>
+
+                <div class="article-section">
+                    <h2>从过去获得力量<br>才能更好地面对未来</h2>
+                    <p>我们经常说：“只要每天努力一点点，就能收获不一样的自己。”今天，就来直观地看一下，如果你每天都进行复盘，不断改进，生活会发生多大变化？</p>
+                    <p>假设你现在的水平是：1。如果每天进步1%，一年后的结果是：1.01365≈37.78；如果每天退步1%，一年后的结果是：0.99365≈0.025。</p>
+                    <p>复盘的目的，不是让自己觉得“我做了很多事情”，也不是让自己发现“我做得还不够好”，而是让自己把过去的每一天、每一次行动、每一个任务，都变成自己的养分，把它们吸收，化为己用，让自己再多迈出哪怕一步的距离。
+                    </p>
+                    <p>一天过去了，其实就已经过去了。你再去纠结它是否充实、是否留有遗憾，其实没有多大意义。关键的是：你能够从中获得什么？从过去获得力量，来帮助我们更好地面对未来 —— 这才是复盘的意义。</p>
+
+                    <!-- <div class="highlight">
+                        <p>"人工智能将是21世纪最具变革性的技术之一，其影响力可能超过电力和互联网的发明。" —— 著名计算机科学家吴恩达</p>
+                    </div> -->
+                </div>
+
+                <div class="article-section">
+                    <h2>学会这三步<br>掌握复盘方法</h2>
+                    <p><strong>第一步是记录。</strong>在学习或工作中，记录以下4个问题：
+                        <br>我遇到了哪些问题？<br>我产生了什么想法？<br>我采取了什么行动？<br>我碰到了哪些“可能有用”的信息？
+                    </p>
+                    <p><strong>第二步是反思。</strong>把记录下来的碎片信息整理后，思考以下4个问题：
+                        <br>这件事情对我的短期和长期目标有作用吗？我是否要调整分配在这件事上的时间？<br>哪些环节可以优化？哪些环节可以省略？哪些环节要坚持？<br>哪些有价值的想法可以付诸行动？<br>在这个任务中，有没有哪些东西是我可以提炼出来、总结成方法论，“迁移”到别的任务的？
+                    </p>
+                    <p><strong>第三步是实践。</strong>把以上思考和方法付诸行动，努力执行到位。</p>
+                    <p>有人说，一件事情可以经过三次创造，一次是在脑子里构思，一次是真正做出来，一次就是复盘。复盘既是在重新理解过去，也是在酝酿未来。让我们把复盘作为一种终身成长的学习方式，在复盘中实现迭代，成为更好的自己。
+                    </p>
+                </div>
+
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // 可以在此处添加交互功能
+        document.querySelectorAll('.article-section').forEach(section => {
+            section.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+        const backButton = document.getElementById('backButton');
+        backButton.addEventListener('click', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            window.location.href = `/articles?page=${urlParams.get('from_page') || 1}`;
+        });
+        // 简单的动画效果
+        const cards = document.querySelectorAll('.article-card');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s, transform 0.6s';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
