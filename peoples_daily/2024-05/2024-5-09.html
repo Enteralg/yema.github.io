@@ -5,25 +5,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>能成事的人，都是利用时间的高手</title>
-    <link rel="stylesheet" href="../../css/read.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/read_article.css">
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 
 <body>
-    <h3>规划时间</h3>
-    <p>你是否有过这样的经历：给自己制定了一份详细的时间计划表，一条接一条的任务占满了表单，看上去有种时间被完美利用的充实感。</p>
-    <p>可真正做起来时就是另外一番景象了，或是难度太大无力完成，或是给每个任务分配的时间不够合理。</p>
-    <p>规划时间，要学会有的放矢。最好是按照轻重缓急排出优先级，确定完成任务的先后顺序，才更容易达成目标。</p>
-    
-    <h3>把握时间</h3>
-    <p>时间是最公平的，因为它每天给任何人的都是24小时；但时间也是最不公平的，因为每个人24小时产生的价值并不相同。当有的人在肆意荒废时间时，有的人却在努力把握时间。</p>
-    <p>好好珍惜和利用时间，无论是看几本书，打开新的知识面，还是学习一项新技能，获得一份新体验，都是在拓宽生命的边界、丰富自己的人生。</p>
-    <p>放弃时间的人，时间也会放弃他。因此，请把握时间，努力的你值得一个更好的自己。</p>
-    <h3>管理时间</h3>
-    <p>每个人都有自己的作息习惯，因此每个人的专注或疲惫的时间都不太一样。我们应该了解并掌握自己的状态，尝试在合适的时间做合适的事。</p>
-    <p>在最专注的时期去做需要用心完成的事，疲惫的时期就适当放松和休息。从而形成良性循环，既能按时完成任务，又能提高质量。</p>
-    <p>学会用短线的时间，穿起一条长线的自我成长。你会发现，现在的点滴积累最终会撬动未来的无限美好。</p>
 
-    
+
+    <div class="container">
+        <article class="article-card">
+            <h1 class="article-title">能成事的人，都是利用时间的高手</h1>
+            <!-- <div class="article-meta">
+                <span>作者：李明</span>
+                <span>发布日期：2023年10月20日</span>
+                <span>阅读时间：8分钟</span>
+            </div> -->
+
+            <div class="article-content">
+                <!-- <figure class="image-container full-width">
+                    <img src="../../images//article/2025-02-01/640.png" alt="拥有平和心态，生活才会处处可爱" class="article-image">
+                    <figcaption class="image-caption">拥有平和心态，生活才会处处可爱</figcaption>
+                </figure> -->
+                <!-- <div class="article-section">
+                    <p>春节假期即将结束，明天我们将迎来蛇年开工第一天。面对崭新的一年，我们也应该刷新自己，安顿好自己的身心，打理好自己的生活，以最好的状态迎接新一年。</p>
+                </div> -->
+                <div class="article-section">
+                    <h2>规划时间</h2>
+                    <p>你是否有过这样的经历：给自己制定了一份详细的时间计划表，一条接一条的任务占满了表单，看上去有种时间被完美利用的充实感。</p>
+                    <p>可真正做起来时就是另外一番景象了，或是难度太大无力完成，或是给每个任务分配的时间不够合理。</p>
+                    <p>规划时间，要学会有的放矢。最好是按照轻重缓急排出优先级，确定完成任务的先后顺序，才更容易达成目标。</p>
+                    
+                </div>
+
+                <div class="article-section">
+                    <h2>把握时间</h2>
+                    <p>时间是最公平的，因为它每天给任何人的都是24小时；但时间也是最不公平的，因为每个人24小时产生的价值并不相同。当有的人在肆意荒废时间时，有的人却在努力把握时间。</p>
+                    <p>好好珍惜和利用时间，无论是看几本书，打开新的知识面，还是学习一项新技能，获得一份新体验，都是在拓宽生命的边界、丰富自己的人生。</p>
+                    <p>放弃时间的人，时间也会放弃他。因此，请把握时间，努力的你值得一个更好的自己。</p>
+                  
+                </div>
+
+                <div class="article-section">
+                    <h2>管理时间</h2>
+                    <p>每个人都有自己的作息习惯，因此每个人的专注或疲惫的时间都不太一样。我们应该了解并掌握自己的状态，尝试在合适的时间做合适的事。</p>
+                    <p>在最专注的时期去做需要用心完成的事，疲惫的时期就适当放松和休息。从而形成良性循环，既能按时完成任务，又能提高质量。</p>
+                    <p>学会用短线的时间，穿起一条长线的自我成长。你会发现，现在的点滴积累最终会撬动未来的无限美好。</p>
+                 </div>
+
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // 可以在此处添加交互功能
+        document.querySelectorAll('.article-section').forEach(section => {
+            section.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+        const backButton = document.getElementById('backButton');
+        backButton.addEventListener('click', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            window.location.href = `/articles?page=${urlParams.get('from_page') || 1}`;
+        });
+        // 简单的动画效果
+        const cards = document.querySelectorAll('.article-card');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s, transform 0.6s';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+
 </body>
 
 </html>

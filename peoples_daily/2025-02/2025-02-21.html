@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>能扛事，也是一种才华横溢</title>
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/read_article.css">
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <article class="article-card">
+            <h1 class="article-title">能扛事，也是一种才华横溢</h1>
+            <!-- <div class="article-meta">
+                <span>作者：李明</span>
+                <span>发布日期：2023年10月20日</span>
+                <span>阅读时间：8分钟</span>
+            </div> -->
+            <figure class="image-container full-width">
+                <img src="../../images//article/2025-02-21/640.png" alt="能扛事，也是一种才华横溢" class="article-image">
+                <figcaption class="image-caption">能扛事，也是一种才华横溢</figcaption>
+            </figure>
+            <div class="article-content">
+                <div class="article-section">
+                    <h2>遇事不逃避，扛得住压力</h2>
+                    <p>生活中，难免有一些跌跌撞撞。面对坎坷时，有的人会深陷困境不能自拔，但真正能扛事的人，往往能扛住压力，鼓起勇气直面难题。</p>
+                    <p>哪怕是最厉害的人，也曾有过失意的时刻，但难能可贵的是他们身上的那份勇敢与坚强。他们肯面对、能坚持，无论身处何种境遇，都能心怀希望、积极向上。</p>
+                    <p>压力是一把双刃剑，它既可能是我们生活的负担，也能成为推动我们前进的动力。遇事不逃避，学会在压力中成长，才能成就更好的自己。</p>
+
+                </div>
+
+                <div class="article-section">
+                    <h2>稳得住自己，冷静解决问题</h2>
+                    <p>能扛事的人，往往都有超乎常人的意志力。面对生活中的坎坷，他们能稳得住心、沉得住气，等到机会来临便能一把抓住、扭转乾坤。</p>
+                    <p>冷静并不意味着缺乏情感，而是能够不被情绪牵着走。面对千头万绪的事情，只有保持稳定的情绪、冷静的头脑，才能不乱于心、洞察全局，从而做出正确的决断。情绪失控，不但解决不了问题，反而会让自己乱了阵脚。
+                    </p>
+                    <p>稳得住自己，是一种格局、一种追求，更是一种耐力。</p>
+
+                    <!-- <div class="highlight">
+                        <p>"人工智能将是21世纪最具变革性的技术之一，其影响力可能超过电力和互联网的发明。" —— 著名计算机科学家吴恩达</p>
+                    </div> -->
+                </div>
+
+                <div class="article-section">
+                    <h2>持续精进，让自己更有底气</h2>
+                    <p>听过这样一句话：“聪明的人很多，真正能扛事的人却不多。能扛事，也是一种才华横溢。”</p>
+                    <p>扛事的能力并不是一蹴而就的，它需要一个逐渐积累的过程。能扛事的人，经得起磨砺，将磕绊视为铺垫，将失败视为养分，总结经验后立马投入下一轮战斗。</p>
+                    <p>能扛事的背后，是不懈努力的积淀，是让自己从容应对任何困难的底气。愿你我，都成长为一个能扛事的人。</p>
+                </div>
+
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // 可以在此处添加交互功能
+        document.querySelectorAll('.article-section').forEach(section => {
+            section.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+        const backButton = document.getElementById('backButton');
+        backButton.addEventListener('click', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            window.location.href = `/articles?page=${urlParams.get('from_page') || 1}`;
+        });
+        // 简单的动画效果
+        const cards = document.querySelectorAll('.article-card');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s, transform 0.6s';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

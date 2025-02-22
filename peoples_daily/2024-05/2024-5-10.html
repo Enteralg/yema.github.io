@@ -5,25 +5,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>先有丰富的自己，才有丰盈的人生</title>
-    <link rel="stylesheet" href="../../css/read.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/read_article.css">
+    <style>
+        body {
+            padding: 2rem;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 
 <body>
-    <h3>开阔眼界</h3>
-    <p>见识的多少，眼界的宽窄，往往会影响一个人的境界和格局。</p>
-    <p>这个世界丰富多彩，等待着你一点点去发现、去体验、去感受、去理解。多出门走走，多读好书，我们就会对所处的世界多一份认识，对周围的人多一份理解。</p>
-    <p>读万卷书，行万里路，视野所及，心之所至。我们的见识和眼界，就是在一次次的出发和阅读中，得以拓宽和丰富。</p>
-    
-    <h3>滋养精神</h3>
-    <p>植物的生长需要阳光雨露，人的成长也需要不断摄入养分。一个人的精神世界如果日渐荒芜干涸，纵然拥有的再多，也很难体会到幸福与快乐。</p>
-    <p>在工作学习之外，培养一些让你有所收获的兴趣爱好，让心灵得到浸润和陶冶，生活的底色自然会随之润泽生动起来。</p>
-    <p>那些你汲取的精神滋养，会一点一滴改变你的修养、学识和气质，最终化为不断支撑你前行的精神财富。</p>
-    <h3>勤于思考</h3>
-    <p>我们的大脑需要不断运转才能保持敏锐，思考就是它运转的方式之一。懒于思考，几乎等同于放弃进步和改变的可能性。</p>
-    <p>想要拥有清醒独立的认识，就要学会打开思想的触角，遇事多方考虑。越是面对错综复杂的情况，越需要通过思考找到问题根源，精准应对。</p>
-    <p>摆脱碎片化的表面信息，养成深度思考的习惯，是人生进阶的关键一步。一个人只有想得够深入、看得够透彻，才能走得更长远。</p>
 
-    
+    <div class="container">
+        <article class="article-card">
+            <h1 class="article-title">先有丰富的自己，才有丰盈的人生</h1>
+            <!-- <div class="article-meta">
+                <span>作者：李明</span>
+                <span>发布日期：2023年10月20日</span>
+                <span>阅读时间：8分钟</span>
+            </div> -->
+
+            <div class="article-content">
+                <!-- <figure class="image-container full-width">
+                    <img src="../../images//article/2025-02-01/640.png" alt="拥有平和心态，生活才会处处可爱" class="article-image">
+                    <figcaption class="image-caption">拥有平和心态，生活才会处处可爱</figcaption>
+                </figure> -->
+                <!-- <div class="article-section">
+                    <p>春节假期即将结束，明天我们将迎来蛇年开工第一天。面对崭新的一年，我们也应该刷新自己，安顿好自己的身心，打理好自己的生活，以最好的状态迎接新一年。</p>
+                </div> -->
+                <div class="article-section">
+                    <h2>开阔眼界</h2>
+                    <p>见识的多少，眼界的宽窄，往往会影响一个人的境界和格局。</p>
+                    <p>这个世界丰富多彩，等待着你一点点去发现、去体验、去感受、去理解。多出门走走，多读好书，我们就会对所处的世界多一份认识，对周围的人多一份理解。</p>
+                    <p>读万卷书，行万里路，视野所及，心之所至。我们的见识和眼界，就是在一次次的出发和阅读中，得以拓宽和丰富。</p>
+
+                </div>
+
+                <div class="article-section">
+                    <h2>滋养精神</h2>
+                    <p>植物的生长需要阳光雨露，人的成长也需要不断摄入养分。一个人的精神世界如果日渐荒芜干涸，纵然拥有的再多，也很难体会到幸福与快乐。</p>
+                    <p>在工作学习之外，培养一些让你有所收获的兴趣爱好，让心灵得到浸润和陶冶，生活的底色自然会随之润泽生动起来。</p>
+                    <p>那些你汲取的精神滋养，会一点一滴改变你的修养、学识和气质，最终化为不断支撑你前行的精神财富。</p>
+
+                </div>
+
+                <div class="article-section">
+                    <h2>勤于思考</h2>
+                    <p>我们的大脑需要不断运转才能保持敏锐，思考就是它运转的方式之一。懒于思考，几乎等同于放弃进步和改变的可能性。</p>
+                    <p>想要拥有清醒独立的认识，就要学会打开思想的触角，遇事多方考虑。越是面对错综复杂的情况，越需要通过思考找到问题根源，精准应对。</p>
+                    <p>摆脱碎片化的表面信息，养成深度思考的习惯，是人生进阶的关键一步。一个人只有想得够深入、看得够透彻，才能走得更长远。</p>
+                </div>
+
+            </div>
+        </article>
+    </div>
+
+    <script>
+        // 可以在此处添加交互功能
+        document.querySelectorAll('.article-section').forEach(section => {
+            section.addEventListener('click', function () {
+                this.classList.toggle('active');
+            });
+        });
+        const backButton = document.getElementById('backButton');
+        backButton.addEventListener('click', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            window.location.href = `/articles?page=${urlParams.get('from_page') || 1}`;
+        });
+        // 简单的动画效果
+        const cards = document.querySelectorAll('.article-card');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s, transform 0.6s';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+
+
+
 </body>
 
 </html>
