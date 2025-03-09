@@ -29,8 +29,8 @@ a {
 body {
     width: 100%;  
     display: flex;
-    background: url(../images/background/body.jpg) fixed no-repeat;
-    background-size: 100vw 100vh;
+    background-image: url(../images/background/body.jpg) ;
+    background-size: cover;
     flex-direction: column;
     flex-wrap: nowrap;
     align-content: center;
